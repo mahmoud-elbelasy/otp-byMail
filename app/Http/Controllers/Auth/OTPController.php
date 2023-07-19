@@ -21,7 +21,7 @@ class OTPController extends Controller
         $otp = mt_rand(100000,999999);
         Auth::user()->update([
             'otp' => $request->otp,
-            'expire' => now()->addMinutes(1),
+            'expire' => now()->addMinutes(10),
         ]);
         Mail::to(Auth::user()->email)->send(new sendMail(Auth::user()->otp));
 
@@ -50,7 +50,7 @@ class OTPController extends Controller
 
         Auth::user()->update([
           'otp' =>rand(100000,999999),
-          'expire' => now()->addMinutes(1),
+          'expire' => now()->addMinutes(10),
         ]);
         
         Mail::to(Auth::user()->email)->send(new sendMail(Auth::user()->otp));

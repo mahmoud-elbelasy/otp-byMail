@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
 
         Auth::user()->update([
             'otp' => rand(100000,999999),
-            'expire' => now()->addMinutes(1),
+            'expire' => now()->addMinutes(10),
         ]);
 
         return redirect()->intended(RouteServiceProvider::HOME);
