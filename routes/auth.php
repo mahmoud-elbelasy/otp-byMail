@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('otp-verification', [OTPController::class, 'create'])
             ->name('otp-verification');
-
+// Route::post('otp-verification', [OTPController::class, 'generateOTP']); 
 Route::post('otp-validate',[OTPController::class, 'validateOtp'] )->name('validateOtp');
-Route::post('otp-resend', [OTPController::class, 'otpResend'])->name('otpResend'); 
-// Route::post('otp-resend', OTPController::class); 
+Route::post('otpResend',[OTPController::class, 'otpResend'] )->name('otpResend');
+
 
 
 Route::middleware('guest')->group(function () {

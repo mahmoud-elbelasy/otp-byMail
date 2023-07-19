@@ -8,6 +8,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class sendMail extends Mailable
 {
@@ -26,7 +28,10 @@ class sendMail extends Mailable
 
   public function build(){
 
-    return $this->subject('Mail from a7a.com')->view('Mail',compact('details'));
+    return $this->subject('Mail from ay_7aga.com')->view('Mail');
 
   }
+
+
+
 }

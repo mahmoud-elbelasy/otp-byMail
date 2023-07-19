@@ -21,8 +21,9 @@ class OTPController extends Controller
         $otp = mt_rand(100000,999999);
         Auth::user()->update([
             'otp' => $request->otp,
+            'expire' => now()->addMinutes(1),
         ]);
-        Mail::to('your_reciever_email@gmail.com')->send(new sendMail(Auth::user()->otp));
+        Mail::to(Auth::user()->email)->send(new sendMail(Auth::user()->otp));
 
         return redirect('otp-verification');
         
@@ -31,27 +32,31 @@ class OTPController extends Controller
 
     public function validateOtp(Request $request){
         
-        if ( Auth::user()->otp == $request->otp) {
+        if (  Auth::user()->otp == $request->otp && (Auth::user()->expire > now())) {
             Auth::user()->update([
-                'otp' => null
+                'otp' => null,
             ]);
             return redirect()->route('dashboard');
 
         }
         else{
-            return false;
+            return redirect()->route('login');
         }
 
         
     }
 
-    public function otpResend(Request $request){
-        $otp = mt_rand(100000,999999);
+    public function otpResend(){
+
         Auth::user()->update([
-            'otp' => $request->otp,
+          'otp' =>rand(100000,999999),
+          'expire' => now()->addMinutes(1),
         ]);
-        Mail::to('your_reciever_email@gmail.com')->send(new sendMail(Auth::user()->otp));
-    }
+        
+        Mail::to(Auth::user()->email)->send(new sendMail(Auth::user()->otp));
+    
+        return redirect('otp-verification');
+      }
 
   
 }
