@@ -9,8 +9,10 @@
         <form class="card p-2" action="{{route('validateOtp')}}" method="post">
             @csrf
             <div class="input-group">
-                <input type="text" class="form-control" name="otp" id="otp" placeholder="enter your OTP" value="" required>
-
+                <input type="text" class="form-control" name="otp" id="otp" placeholder="enter your OTP"  value="" required>
+                {{-- @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror --}}
                 <x-primary-button type="submit" class="ml-4">
                     {{ __('login') }}
                 </x-primary-button>

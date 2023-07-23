@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Mail\sendMail;
 use App\Models\User;
@@ -21,7 +22,7 @@ class OTPController extends Controller
         $otp = mt_rand(100000,999999);
         Auth::user()->update([
             'otp' => $request->otp,
-            'expire' => now()->addMinutes(10),
+            'expire' => (Carbon::now()->addMinutes(10)),
         ]);
         Mail::to(Auth::user()->email)->send(new sendMail(Auth::user()->otp));
 
@@ -32,7 +33,7 @@ class OTPController extends Controller
 
     public function validateOtp(Request $request){
         
-        if (  Auth::user()->otp == $request->otp && (Auth::user()->expire > now())) {
+        if (  Auth::user()->otp == $request->otp) {
             Auth::user()->update([
                 'otp' => null,
             ]);
@@ -60,3 +61,6 @@ class OTPController extends Controller
 
   
 }
+
+// && (Auth::user()->expire > now())
+// && ((Auth::user()->expire) > Carbon::now())
