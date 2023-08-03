@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +31,33 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/create', function () {
+    $owner = Role::create([
+        'name' => 'owner',
+        'description' => 'User is the owner of a given project', 
+    ]);
+    
+    $admin = Role::create([
+        'name' => 'admin',
+        'description' => 'User is allowed to manage and edit other users',
+    ]);
+
+    $createPost = Permission::create([
+        'name' => 'create-post',
+        'description' => 'create new blog posts', 
+    ]);
+    
+    $editUser = Permission::create([
+        'name' => 'edit-user',
+        'description' => 'edit existing users',
+    ]);
+
+    $admin->givePermission($createPost);
+    $owner->givePermissions([$editUser,$createPost]);
+
+    return "gg";
+});
+
+
+Route::get('/admin', [RoleController::class,'welcome'])->middleware('permission:edit-user');

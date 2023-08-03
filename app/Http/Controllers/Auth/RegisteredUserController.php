@@ -42,6 +42,13 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        if ($request->type == 'owner'){
+            $user->attachRole('owner');
+            
+        }
+        if ($request->type == 'admin'){
+            $user->attachRole('admin');
+        }
         event(new Registered($user));
 
         Auth::login($user);
