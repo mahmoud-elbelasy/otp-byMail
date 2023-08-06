@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->type,
         ]);
 
         if ($request->type == 'owner'){
@@ -49,6 +50,8 @@ class RegisteredUserController extends Controller
         if ($request->type == 'admin'){
             $user->attachRole('admin');
         }
+
+
         event(new Registered($user));
 
         Auth::login($user);

@@ -20,8 +20,8 @@
             <label for="type" class="block mt-3 mb-1 font-medium text-sm text-gray-700">Type</label>
             <select name="type" id="type" style="width: 100%;" class="block rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
                 <option value=""></option>
-                <option value="writer"> owner </option>
-                <option value="reader"> admin </option>
+                <option value="owner"> owner </option>
+                <option value="admin"> admin </option>
             </select>
         </div>
         <!-- Password -->
