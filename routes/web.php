@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\relations\hasManyController;
+use App\Http\Controllers\UserController;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
@@ -33,31 +36,40 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/create', function () {
-    $owner = Role::create([
-        'name' => 'owner',
-        'description' => 'User is the owner of a given project', 
-    ]);
+    // $owner = Role::create([
+    //     'name' => 'owner',
+    //     'description' => 'User is the owner of a given project', 
+    // ]);
     
-    $admin = Role::create([
-        'name' => 'admin',
-        'description' => 'User is allowed to manage and edit other users',
-    ]);
+    // $admin = Role::create([
+    //     'name' => 'admin',
+    //     'description' => 'User is allowed to manage and edit other users',
+    // ]);
 
-    $createPost = Permission::create([
-        'name' => 'create-post',
-        'description' => 'create new blog posts', 
-    ]);
+    // $createPost = Permission::create([
+    //     'name' => 'create-post',
+    //     'description' => 'create new blog posts', 
+    // ]);
     
-    $editUser = Permission::create([
-        'name' => 'edit-user',
-        'description' => 'edit existing users',
-    ]);
+    // $editUser = Permission::create([
+    //     'name' => 'edit-user',
+    //     'description' => 'edit existing users',
+    // ]);
 
-    $admin->givePermission($createPost);
-    $owner->givePermissions([$editUser,$createPost]);
+    $role = Role::find(1);
+    $permission = Permission::find(1);
+    $role->attachPermission($permission);
+    // $owner->givePermissions([$editUser,$createPost]);
 
     return "gg";
 });
 
 
 Route::get('/admin', [RoleController::class,'welcome'])->middleware('permission:edit-user');
+
+// Route::get('posts/create',[PostController::class,'create']);
+Route::resource('users',UserController::class);
+
+// Route::get('create',UserController::class,'create');
+
+Route::get('try',[hasManyController::class,'trying']);
