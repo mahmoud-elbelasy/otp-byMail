@@ -6,6 +6,8 @@ use App\Http\Controllers\relations\hasManyController;
 use App\Http\Controllers\UserController;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,9 +58,11 @@ Route::get('/create', function () {
     //     'description' => 'edit existing users',
     // ]);
 
-    $role = Role::find(1);
-    $permission = Permission::find(1);
-    $role->attachPermission($permission);
+    $user = User::find(10);
+    // $role = Role::find(2);
+    $user->attachRole(1);
+    // $permission = Permission::find(2);
+    // $role->attachPermission($permission);
     // $owner->givePermissions([$editUser,$createPost]);
 
     return "gg";
@@ -73,3 +77,12 @@ Route::resource('users',UserController::class);
 // Route::get('create',UserController::class,'create');
 
 Route::get('try',[hasManyController::class,'trying']);
+
+
+Route::get('/test',function(){
+    $user = User::find(10);
+    $role = Role::find(1);
+    $user->attachRole($role);
+    dd('gg');
+
+});
