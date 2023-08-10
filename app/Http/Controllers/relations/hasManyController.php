@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 class hasManyController extends Controller
 {
     public function trying(){
-        return User::find(9)->role;
+        $roles = User::find(10)->roles()->orderBy('name')->get();
+
+        foreach($roles as $role){
+            // echo json_encode(($role));
+            echo $role;
+        }
     }
+
 }

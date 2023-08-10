@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\invoiceController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\relations\hasManyController;
 use App\Http\Controllers\UserController;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,9 +59,11 @@ Route::get('/create', function () {
     //     'description' => 'edit existing users',
     // ]);
 
-    $role = Role::find(1);
-    $permission = Permission::find(1);
-    $role->attachPermission($permission);
+    $user = User::find(10);
+    // $role = Role::find(2);
+    $user->attachRole(1);
+    // $permission = Permission::find(2);
+    // $role->attachPermission($permission);
     // $owner->givePermissions([$editUser,$createPost]);
 
     return "gg";
@@ -73,3 +78,17 @@ Route::resource('users',UserController::class);
 // Route::get('create',UserController::class,'create');
 
 Route::get('try',[hasManyController::class,'trying']);
+
+Route::get('/create_invoice', [invoiceController::class,'create']);
+Route::post('/create_invoice', [invoiceController::class,'store'])->name('create_invoice');
+
+Route::get('/getAttachment', [invoiceController::class,'getAttachment']);
+
+
+Route::get('/test',function(){
+    $user = User::find(10);
+    $role = Role::find(1);
+    $user->attachRole($role);
+    dd('gg');
+
+});
