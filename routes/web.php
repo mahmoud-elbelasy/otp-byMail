@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\invoiceController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\relations\hasManyController;
@@ -77,6 +78,11 @@ Route::resource('users',UserController::class);
 // Route::get('create',UserController::class,'create');
 
 Route::get('try',[hasManyController::class,'trying']);
+
+Route::get('/create_invoice', [invoiceController::class,'create']);
+Route::post('/create_invoice', [invoiceController::class,'store'])->name('create_invoice');
+
+Route::get('/getAttachment', [invoiceController::class,'getAttachment']);
 
 
 Route::get('/test',function(){
