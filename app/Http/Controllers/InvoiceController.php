@@ -56,8 +56,23 @@ class InvoiceController extends Controller
             // 'attachments' => $request->attachments
         ]);
 
+        $file = $request->file('file');
+
+        // dd($file);
+        $destinationPath = "upload";
+        $fileName = "image1";
+
+        // dd($request);
+        if($file->move($destinationPath, $fileName)){
+
+            echo "file uplad success";
+        }
+        else{
+            echo "some thing went wrong";
+        }
+
         $attachment = $invoice->attachment()->create([
-            'attachment' => $request->attachment,
+            'file' => $request->attachment,
         ]);
 
         $product = $invoice->products()->create([

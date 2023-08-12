@@ -79,7 +79,7 @@ Route::resource('users',UserController::class);
 
 Route::get('try',[hasManyController::class,'trying']);
 
-Route::get('/create_invoice', [invoiceController::class,'create']);
+Route::get('/create_invoice', [invoiceController::class,'create'])->name('create.invoice');
 Route::post('/create_invoice', [invoiceController::class,'store'])->name('create_invoice');
 
 Route::get('/getAttachment', [invoiceController::class,'getAttachment']);

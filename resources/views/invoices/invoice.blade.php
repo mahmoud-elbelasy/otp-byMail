@@ -3,7 +3,7 @@
 
 
 <body>
-<form action="{{ route('create_invoice') }}" method="POST">
+<form action="{{ route('create_invoice') }}" method="POST" enctype="multipart/form-data">
     @csrf
   
      <!-- invoice_no -->
@@ -32,7 +32,7 @@
     <div class="mt-4">
         <x-input-label for="attachment" :value="__('attachment')" />
 
-        <x-text-input id="attachment" class="block mt-1 w-full" type="text" name="attachment" :value="old('attachment')" required autofocus />
+        <x-text-input id="file" class="form-control" type="file" name="file"  required />
         {{-- <x-input-error :messages="$errors->get('attachments')" class="mt-2" />  --}}
     </div> 
 
