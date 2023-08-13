@@ -32,7 +32,7 @@
     <div class="mt-4">
         <x-input-label for="attachment" :value="__('attachment')" />
 
-        <x-text-input id="file" class="form-control" type="file" name="file"  required />
+        <x-text-input id="attachment" class="form-control" type="file" name="attachment" required />
         {{-- <x-input-error :messages="$errors->get('attachments')" class="mt-2" />  --}}
     </div> 
 

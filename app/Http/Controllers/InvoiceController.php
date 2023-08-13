@@ -6,6 +6,7 @@ use App\Models\Invoice;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Attachment;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -56,14 +57,18 @@ class InvoiceController extends Controller
             // 'attachments' => $request->attachments
         ]);
 
-        $file = $request->file('file');
+        $file = $request->file('attachment');
 
         // dd($file);
         $destinationPath = "upload";
-        $fileName = "image1";
+
+        $randomId = rand(100000,999999);
+        $fileName = "invoice_" . $randomId . "." . $file->getClientOriginalExtension();
+
+
 
         // dd($request);
-        if($file->move($destinationPath, $fileName)){
+        if($file->storeAs('public', $fileName)){
 
             echo "file uplad success";
         }
@@ -72,7 +77,7 @@ class InvoiceController extends Controller
         }
 
         $attachment = $invoice->attachment()->create([
-            'file' => $request->attachment,
+            'attachment' => $request->attachment,
         ]);
 
         $product = $invoice->products()->create([
